@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('DJANGO-SECRET-KEY', 'django-insecure-we$uu_zj*stni4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['auditreview-production.up.railway.app', '127.0.0.1', 'containers-us-west-104.railway.app']
+ALLOWED_HOSTS = ['auditreview-production.up.railway.app', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://auditreview-production.up.railway.app',
@@ -130,11 +130,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT = BASE_DIR / 'uploads'
 MEDIA_URL = '/uploads/'
