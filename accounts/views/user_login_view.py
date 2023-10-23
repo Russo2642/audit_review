@@ -1,9 +1,7 @@
+from accounts.forms import UserLoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
-
-from accounts.forms import UserLoginForm
 
 
 class LoginView(FormView):

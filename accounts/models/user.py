@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from review.models.review_title import ReviewTitle
 
 
 class DepartmentChoice(models.TextChoices):
