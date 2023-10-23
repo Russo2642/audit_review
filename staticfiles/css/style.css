@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.form-control {
+    width: 50%;
+}
+
+.row {
+    box-shadow: 0px 0px 10px 0px gray;
+    padding: 30px;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+.review-card {
+    border: 2px solid black;
+    border-radius: 20px;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.index-stats-button {
+    text-decoration: underline;
+    border: none;
+    background: transparent;
+    color: rgb(31, 192, 246);
+}
+
+.sender {
+    padding-bottom: 40px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+.add {
+    width: 250px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px 0px gray;
+    margin: 50px auto;
+    display: block;
+    font-size: 18px;
+    text-shadow: 0px 0px 2px gray;
+}
+
+.add:hover{
+    background: green;
+    color: white;
+}
+
+.wrapper {
+    margin: auto;
+    box-shadow:  0px 0px 5px 0px gray;
+    max-width: 600px;
+    padding:30px;
+    border-radius: 20px;
+}
+.wrapper h3 {
+    font-size: 24px;
+    text-shadow: 0px 0px 2px gray;
+}
+.wrapper-task {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.wrapper-task__item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 0px 3px 0px gray;
+    padding: 10px;
+    border-radius: 10px;
+}
+.wrapper-task__item h4 {
+    font-size: 18px;
+    text-shadow: 0px 0px 1px rgb(0, 175, 0);
+    color: rgb(0, 175, 0);
+}
+.wrapper-task__item button {
+    padding: 10px 25px;
+    border-radius: 20px;
+    border: none;
+    background: red;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0px 0px 3px #fff;
+    box-shadow: 0px 0px 5px 0px red;
+    text-transform: uppercase;
+}
