@@ -128,6 +128,12 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
 MEDIA_ROOT = BASE_DIR / 'uploads'
 MEDIA_URL = '/uploads/'
 
