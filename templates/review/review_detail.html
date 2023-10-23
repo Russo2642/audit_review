@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% block content %}
+   {# Общая оценка: {{ review.author.overall_score_for_the_quarter }} #}
+    {# <p>Оценка СВА: {{ review.author.overall_score_for_the_department }}</p> #}
+    <p><b>Проверка: </b>{{ review.title }}</p>
+    <p><b>Оценка пользователя: {{ review.author }}, департамент: {{ review.author.get_department_display }}</b></p>
+    <p>Общая оценка блока А: {{ review.block_a_sum }}</p>
+    <p>Комментарий к блоку A: {{ review.comment_block_a }}</p>
+    <p>Общая оценка блока B: {{ review.block_b_sum }}</p>
+    <p>Комментарий к блоку A: {{ review.comment_block_b }}</p>
+    <p>Общая оценка блока C: {{ review.block_c_sum }}</p>
+    <p>Комментарий к блоку A: {{ review.comment_block_c }}</p>
+    <p>Общая оценка блока D: {{ review.block_d_sum }}</p>
+    <p>Итог: {{ review.total_for_all_blocks }}</p>
+    <p>Комментарий к блоку A: {{ review.comment_block_d }}</p>
+    <p>Пожелания: {{ review.wishes }}</p>
+
+    <br>
+
+    <a href="{% url 'export-excel' review.pk %}">Выгрузить в Excel</a>
+{% endblock %}

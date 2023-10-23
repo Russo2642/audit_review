@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% block content %}
+
+<form action="{% url 'review_title_create' %}">
+    <button type="submit" class="add">Добавить проверку</button>
+</form>
+
+{# <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" #}
+{#                        data-bs-target="#ModalChangeTitle"> #}
+{#                    Добавить проверку #}
+{# </button> #}
+{# {% include 'partial/review_title_modal.html' %} #}
+
+
+    <div class="wrapper">
+        <h3>Наименование</h3>
+        <div class="wrapper-task">
+            {% for title in review_title %}
+            <div class="wrapper-task__item">
+                {{ title.name }} - {{ title.author }} - {{ title.author.get_department_display }}
+                <form method="POST" action="{% url 'review_title_delete' title.pk %}">
+                    {% csrf_token %}
+                    <button type="submit">Удалить</button>
+                </form>
+            </div>
+            {% empty %}
+            <h1>Здесь пока пусто</h1>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

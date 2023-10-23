@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% block content %}
+    <h1>Оценка работы СВА</h1>
+    <br>
+    <div class="form">
+        <div class="row">
+            <div class="review-card">
+                <form action="{% url 'review_create' %}" method="post">
+                {% csrf_token %}
+                    {% for i in user.author_title.all %}
+                        {% if i.author == user %}
+                            <h2 style="text-align:center;">Проверка: {{ i.name }}</h2>
+                                {% endif %}
+                        {% endfor %}
+                <h3>Процесс Аудита</h3>
+                <span>{% bootstrap_field form.block_a_1 placeholder="" %}</span>
+                <span>{% bootstrap_field form.block_a_2 placeholder="" %}</span>
+                <span>{% bootstrap_field form.block_a_3 placeholder="" %}</span>
+                    <span>{% bootstrap_field form.comment_block_a placeholder="" %}</span>
+
+                <h3>Аудиторская команда</h3>
+                <span>{% bootstrap_field form.block_b_1 placeholder="" %}</span>
+                <span>{% bootstrap_field form.block_b_2 placeholder="" %}</span>
+                <span>{% bootstrap_field form.block_b_3 placeholder="" %}</span>
+                <span>{% bootstrap_field form.block_b_4 placeholder="" %}</span>
+                    <span>{% bootstrap_field form.comment_block_b placeholder="" %}</span>
+
+                <h3>Завершение аудита и отчётность</h3>
+                <span>{% bootstrap_field form.block_c_1 placeholder="" %}</span>
+                <span>{% bootstrap_field form.block_c_2 placeholder="" %}</span>
+                <span>{% bootstrap_field form.block_c_3 placeholder="" %}</span>
+                <span>{% bootstrap_field form.block_c_4 placeholder="" %}</span>
+                    <span>{% bootstrap_field form.comment_block_c placeholder="" %}</span>
+
+                <h3>Польза от объекта аудита</h3>
+                <span>{% bootstrap_field form.block_d_1 placeholder="" %}</span>
+                <span>{% bootstrap_field form.block_d_2 placeholder="" %}</span>
+                    <span>{% bootstrap_field form.comment_block_d placeholder="" %}</span>
+                <h3>Оставьте ваши пожелания (необязательно)</h3>
+                <span>{% bootstrap_field form.wishes placeholder="" %}</span>
+                {% bootstrap_button button_type="submit" content="Оценить"%}
+            </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

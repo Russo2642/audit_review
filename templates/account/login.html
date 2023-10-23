@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+
+<title>{% block title %}Login{% endblock %}</title>
+{% block content %}
+    <div class="login-form">
+        <div class="row mt-5">
+            <div class="d-flex justify-content-center">
+                <div class="col-12 col-sm-11 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card rounded-4 shadow-sm border p-2">
+                        <div class="card-body">
+                            <h2 style="text-align: center">Авторизация</h2>
+                            <form method="post">
+                                {% csrf_token %}
+                                {% bootstrap_form form %}
+                                {% bootstrap_button button_type="submit" content='Войти' button_class='mt-2 btn-primary rounded-5 shadow w-100' %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4 mb-5">
+        <div class="d-flex justify-content-center">
+            <div class="col-12 col-sm-11 col-md-8 col-lg-6 col-xl-5">
+                <div class="card rounded-4 shadow-sm border">
+                    <div class="card-body text-center">
+                        <span>
+                            У вас нет аккаунта?
+                            <a href="{% url 'register' %}">Зарегистрироваться</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

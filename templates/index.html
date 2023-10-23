@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% block content %}
+
+
+      {% if not user.is_superuser %}
+            <h2>Вас приветствует команда СВА!</h2>
+            <p>Вы сможете пройти опросник, увидев в панели меню (возле надписи "НА ГЛАВНУЮ") кнопку "Оставить отзыв".</p>
+            <p>Данная кнопка появится в том случае, когда департамент аудита предоставит вам доступ к прохождению.</p>
+            <p>Что бы пройти опросник, необходимо войти в систему при помощи логина и пароля.</p>
+            <p>Если у вас нет учётной записи, просим её создать.</p>
+      {% else %}
+            <h2>Оценки опросника</h2>
+      {% endif %}
+
+      {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+                  {% include "partial/filtering.html" %}
+                  {% for review in reviews %}
+                        <a style="text-decoration: none; color: gray;" href="{% url 'review_detail' review.pk %}"><p>Проверка: {{ review.title }}. Пользователь: {{ review.author }}. Департамент: {{ review.author.get_department_display }}.
+                              Общая оценка: {{ review.total_for_all_blocks }}. Дата и время заполнения: {{ review.created_at }}</p></a>
+                  {% empty %}
+                        <h3 class="text-align:center;">Данные отсутствуют</h3>
+                  {% endfor %}
+                  <b>Итоговая оценка: </b>{{ total }}
+            {% endif %}
+
+      {% endif %}
+{% endblock %}

@@ -1,0 +1,79 @@
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Отзовик</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 80px">
+    <div class="container">
+        <a href="{% url 'index' %}" style="text-decoration:None; color: white;">
+            <h3>На главную</h3>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                {% if user.is_authenticated %}
+                    {% if user.activating == 'ACTIVE' %}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'review_create' %}">Оставить отзыв</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+
+            </ul>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' user.pk %}">
+                                Профиль
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'review_title_index' %}">
+                                Проверки
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">
+                                Зарегестрировать
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">
+                            Выйти
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">
+                            Войти
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+  <div class="container">
+      {% if messages %}
+           {% for message in messages %}
+                <div class="text-center alert alert-{{ message.tags }}">
+                   {{ message|safe }}
+                </div>
+            {% endfor %}
+      {% endif %}
+      {% block content %}{% endblock %}
+  </div>
+</body>
+</html>
