@@ -1,5 +1,10 @@
+import smtplib
+import ssl
+from email.message import EmailMessage
+
 from accounts.models import User
 from accounts.models.user import DepartmentChoice, ActivateChoice
+from django.conf import settings
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, get_object_or_404, redirect
@@ -104,5 +109,19 @@ class SendReviewView(SuccessMessageMixin, View):
         users = get_object_or_404(User, pk=pk)
         if users.activating == ActivateChoice.NOT_ACTIVE:
             users.activating = ActivateChoice.ACTIVE
+
+            msg = EmailMessage()
+            msg.set_content('''Вам отправлен опросник. https://auditreview-production.up.railway.app/''')
+            msg['Subject'] = 'АУДИТ. ВАМ НАЗНАЧЕН ОПРОСНИК!'
+            msg['From'] = settings.EMAIL_HOST_USER
+            msg['To'] = users.email
+
+            _context = ssl.create_default_context()
+
+            with smtplib.SMTP('smtp.gmail.com', port=587) as smtp:
+                smtp.starttls(context=_context)
+                smtp.login(msg['From'], settings.EMAIL_HOST_PASSWORD)
+                smtp.send_message(msg)
+
         users.save()
         return redirect(request.META.get('HTTP_REFERER', '/'))

@@ -22,9 +22,13 @@
             <ul class="navbar-nav me-auto">
                 {% if user.is_authenticated %}
                     {% if user.activating == 'ACTIVE' %}
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'review_create' %}">Оставить отзыв</a>
-                        </li>
+                        {% for i in user.author_title.all %}
+                            {% if i.author == user %}
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="{% url 'review_create' %}">Оставить отзыв</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
                 {% endif %}
 
@@ -34,7 +38,7 @@
                     {% if user.is_superuser %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'profile' user.pk %}">
-                                Профиль
+                                Назначить опрос
                             </a>
                         </li>
                         <li class="nav-item">
