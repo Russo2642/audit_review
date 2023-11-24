@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 
+from accounts.models import Department
+
 
 class UserRegisterForm(forms.ModelForm):
     password = forms.CharField(
@@ -13,6 +15,11 @@ class UserRegisterForm(forms.ModelForm):
         required=True,
         widget=forms.PasswordInput,
         label='Подтвердите пароль',
+    )
+    department = forms.ModelMultipleChoiceField(
+        queryset=Department.objects.all(),
+        widget=forms.Select,
+        label='Департамент',
     )
 
     class Meta:
@@ -30,7 +37,6 @@ class UserRegisterForm(forms.ModelForm):
             'username': 'Логин',
             'first_name': 'Имя',
             'last_name': 'Фамилия',
-            'department': 'Департамент',
             'email': 'Почта руководителя департамента',
         }
 

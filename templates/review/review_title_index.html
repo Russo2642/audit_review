@@ -19,7 +19,7 @@
         <div class="wrapper-task">
             {% for title in review_title %}
             <div class="wrapper-task__item">
-                {{ title.name }} - {{ title.author }} - {{ title.author.get_department_display }}
+                {{ title.name }} - {{ title.author }} - {{ title.author.department }}
                 <form method="POST" action="{% url 'review_title_delete' title.pk %}">
                     {% csrf_token %}
                     <button type="submit">Удалить</button>

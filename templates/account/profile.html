@@ -6,7 +6,7 @@
     {% for i in all_users %}
         {% if i.activating == 'NOT_ACTIVE' %}
         <div class="sender">
-            <b>Логин пользователя:</b> {{ i.username }}. <b>Департамент:</b> {{ i.get_department_display }}
+            <b>Логин пользователя:</b> {{ i.username }}. <b>Департамент:</b> {{ i.department }}
         <form action="{% url 'send_review' i.pk %}" method="post"> {% csrf_token %}
 
             <button class="index-stats-button" type="submit">Отправить опросник</button>

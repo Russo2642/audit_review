@@ -7,9 +7,9 @@
                         <label for="department" class="form-label">Департамент</label>
                         <select class="form-select" id="department" name="department">
                             <option value="">Все департаменты</option>
-                            {% for department in DepartmentChoice %}
-                            <option value="{{ department.0 }}" {% if selected_department == department.0 %}selected{% endif %}>
-                                {{ department.1 }}
+                            {% for dep in DepartmentChoice %}
+                            <option value="{{ dep.name }}" {% if selected_department == dep.name %}selected{% endif %}>
+                                {{ dep.name }}
                             </option>
                             {% endfor %}
                         </select>

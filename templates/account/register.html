@@ -16,8 +16,15 @@
                             <form action="" method="POST" enctype="multipart/form-data">
                                 <div class="form">
                                     {% csrf_token %}
-                                    {% bootstrap_form form %}
-                                    {% bootstrap_button button_type='submit' content='Зарегистрироваться' button_class='mt-2 btn-primary rounded-5 shadow w-100' %}
+                                    {# {% bootstrap_form form %} #}
+                                    {% bootstrap_field form.username placeholder='' %}
+                                    {% bootstrap_field form.first_name placeholder='' %}
+                                    {% bootstrap_field form.last_name placeholder='' %}
+                                    {% bootstrap_field form.password placeholder='' %}
+                                    {% bootstrap_field form.password_confirm placeholder='' %}
+                                    {% bootstrap_field form.department placeholder='' %}
+                                    {% bootstrap_field form.email placeholder='' %}
+                                    {% bootstrap_button button_type='submit' content='Зарегистрировать' button_class='mt-2 btn-primary rounded-5 shadow w-100' %}
                                 </div>
                             </form>
                         </div>

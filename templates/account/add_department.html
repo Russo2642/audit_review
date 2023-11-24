@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% block content %}
+    <h1>Введите название департамента</h1>
+    <br>
+    <div class="form">
+        <div class="row">
+            <div class="review-card">
+                <form action="{% url 'add_department' %}" method="post">
+                {% csrf_token %}
+                <span>{% bootstrap_field form.name placeholder="" %}</span>
+                {% bootstrap_button button_type="submit" content="Добавить"%}
+            </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

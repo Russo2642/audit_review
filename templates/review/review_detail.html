@@ -5,7 +5,7 @@
    {# Общая оценка: {{ review.author.overall_score_for_the_quarter }} #}
     {# <p>Оценка СВА: {{ review.author.overall_score_for_the_department }}</p> #}
     <p><b>Проверка: </b>{{ review.title }}</p>
-    <p><b>Оценка пользователя: {{ review.author }}, департамент: {{ review.author.get_department_display }}</b></p>
+    <p><b>Оценка пользователя: {{ review.author }}, департамент: {{ review.author.department }}</b></p>
     <p>Общая оценка блока А: {{ review.block_a_sum }}</p>
     <p>Комментарий к блоку A: {{ review.comment_block_a }}</p>
     <p>Общая оценка блока B: {{ review.block_b_sum }}</p>

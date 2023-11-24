@@ -18,7 +18,7 @@
             {% if user.is_superuser %}
                   {% include "partial/filtering.html" %}
                   {% for review in reviews %}
-                        <a style="text-decoration: none; color: gray;" href="{% url 'review_detail' review.pk %}"><p>Проверка: {{ review.title }}. Пользователь: {{ review.author }}. Департамент: {{ review.author.get_department_display }}.
+                        <a style="text-decoration: none; color: gray;" href="{% url 'review_detail' review.pk %}"><p>Проверка: {{ review.title }}. Пользователь: {{ review.author }}. Департамент: {{ review.author.department }}.
                               Общая оценка: {{ review.total_for_all_blocks }}. Дата и время заполнения: {{ review.created_at }}</p></a>
                   {% empty %}
                         <h3 class="text-align:center;">Данные отсутствуют</h3>

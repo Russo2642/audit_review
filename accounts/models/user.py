@@ -2,10 +2,17 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class DepartmentChoice(models.TextChoices):
-    SVA = 'SVA', 'СВА'
-    DUKD = 'DUKD', 'ДУКД'
-    DPT = 'DPT', 'ДПТ'
+# class DepartmentChoice(models.TextChoices):
+#     SVA = 'SVA', 'СВА'
+#     DUKD = 'DUKD', 'ДУКД'
+#     DPT = 'DPT', 'ДПТ'
+
+
+class Department(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 
 class ActivateChoice(models.TextChoices):
@@ -21,11 +28,11 @@ class User(AbstractUser):
         unique=True,
         verbose_name='Логин',
     )
-    department = models.CharField(
-        max_length=256,
-        null=False,
-        choices=DepartmentChoice.choices,
-        default=DepartmentChoice.SVA,
+    department = models.ForeignKey(
+        to='accounts.Department',
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='user',
         verbose_name='Департамент',
     )
     activating = models.CharField(

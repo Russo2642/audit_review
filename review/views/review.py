@@ -3,7 +3,7 @@ import ssl
 from email.message import EmailMessage
 
 from accounts.models import User
-from accounts.models.user import DepartmentChoice, ActivateChoice
+from accounts.models.user import Department, ActivateChoice
 from django.conf import settings
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -22,17 +22,18 @@ class IndexView(ListView):
 
     def get(self, request, *args, **kwargs):
         reviews = Review.objects.all()
+        deparatment_name = Department.objects.all()
         department_filter = request.GET.get('department')
         title_filter = request.GET.get('title')
 
         if department_filter:
-            reviews = reviews.filter(author__department=department_filter)
+            reviews = reviews.filter(author__department__name=department_filter)
 
         elif title_filter:
             reviews = reviews.filter(title=title_filter)
 
         elif department_filter and title_filter:
-            reviews = reviews.filter(author__department=department_filter, title=title_filter)
+            reviews = reviews.filter(author__department__name=department_filter, title=title_filter)
 
         counter = 0
         authors = []
@@ -48,7 +49,7 @@ class IndexView(ListView):
 
         return render(request, template_name=self.template_name, context={
             'reviews': reviews,
-            'DepartmentChoice': DepartmentChoice.choices,
+            'DepartmentChoice': deparatment_name,
             'titles': ReviewTitle.objects.all(),
             'total': total,
         })
@@ -83,7 +84,6 @@ class ReviewCreateView(SuccessMessageMixin, UserPassesTestMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        # titles = get_object_or_404(ReviewTitle, author=self.request.user.pk)
         titles = ReviewTitle.objects.filter(author=self.request.user.pk).order_by('-created_at')[0]
         if titles:
             form.instance.title = titles.name
@@ -110,18 +110,20 @@ class SendReviewView(SuccessMessageMixin, View):
         if users.activating == ActivateChoice.NOT_ACTIVE:
             users.activating = ActivateChoice.ACTIVE
 
-            msg = EmailMessage()
-            msg.set_content('''Вам отправлен опросник. https://auditreview-production.up.railway.app/''')
-            msg['Subject'] = 'АУДИТ. ВАМ НАЗНАЧЕН ОПРОСНИК!'
-            msg['From'] = settings.EMAIL_HOST_USER
-            msg['To'] = users.email
+            if users.email:
 
-            _context = ssl.create_default_context()
+                msg = EmailMessage()
+                msg.set_content('''Вам отправлен опросник. https://web-production-32313.up.railway.app/''')
+                msg['Subject'] = 'АУДИТ. ВАМ НАЗНАЧЕН ОПРОСНИК!'
+                msg['From'] = settings.EMAIL_HOST_USER
+                msg['To'] = users.email
 
-            with smtplib.SMTP('smtp.gmail.com', port=587) as smtp:
-                smtp.starttls(context=_context)
-                smtp.login(msg['From'], settings.EMAIL_HOST_PASSWORD)
-                smtp.send_message(msg)
+                _context = ssl.create_default_context()
+
+                with smtplib.SMTP('smtp.gmail.com', port=587) as smtp:
+                    smtp.starttls(context=_context)
+                    smtp.login(msg['From'], settings.EMAIL_HOST_PASSWORD)
+                    smtp.send_message(msg)
 
         users.save()
         return redirect(request.META.get('HTTP_REFERER', '/'))
