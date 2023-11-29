@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO-SECRET-KEY', 'asd')
+SECRET_KEY = os.environ.get('DJANGO-SECRET-KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
@@ -159,7 +159,7 @@ EMAIL_USE_TLS = False
 EMAIL_USE_SSL = False
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-# DATABASES['default'] = dj_database_url.config(
-#     conn_max_age=500,
-#     conn_health_checks=True,
-# )
+DATABASES['default'] = dj_database_url.config(
+    conn_max_age=500,
+    conn_health_checks=True,
+)
